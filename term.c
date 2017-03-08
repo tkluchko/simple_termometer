@@ -15,7 +15,7 @@
 #define D   8
 #define E  16
 #define F  32
-#define G  128
+#define G  64
 
 //didits pins
 #define DIGIT_1  1
@@ -62,9 +62,10 @@ static flash unsigned char commonPins[] = {
 #define ZERO 0
 #define HALF 5
 
-#define DP_PIN PORTB.6
+#define DP_PIN PORTB.7
 #define LED_BLUE PORTD.4
 #define LED_RED PORTD.5
+#define LED_GREEN PORTD.3
 
 ds18b20_temperature_data_struct temperature;
 unsigned char ds18b20_devices;
@@ -185,7 +186,9 @@ void main(void) {
 	 while (1) {
 
 	 	if (ds18b20_devices >= 1) {
+            LED_GREEN = 1;
 	 		temperature = ds18b20_temperature_struct(&rom_code[currentSensor][0]);
+            LED_GREEN = 0;
 	 		view_term();
 	 		currentSensor++;
 	 		if (currentSensor >= ds18b20_devices) {
